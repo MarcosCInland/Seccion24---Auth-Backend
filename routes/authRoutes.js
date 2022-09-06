@@ -4,12 +4,16 @@ const { check } = require('express-validator');
 const router = Router();
 
 //  CONTROLLER
-const { crearUsuario, login, renovarToken } = require('../controllers/auth.controller');
+const { crearUsuario, login, renovarToken } = require('../controllers/authController');
+//  MIDDLEWARES
+const { validarCampos } = require('../middlewares/validar-campos');
 
 //Login
 router.post('/',                                                //route
     [   check('email', 'Email obligatorio').isEmail(),          //middlewares
-        check('password', 'Password obligatoria').notEmpty()],  
+        check('password', 'Password obligatoria').notEmpty(),
+        validarCampos
+    ],  
     login                                                       //controllerFunction
 );
 
@@ -17,7 +21,9 @@ router.post('/',                                                //route
 router.post('/new',
     [   check('name', 'Nombre obligatorio').notEmpty(),
         check('email', 'Email obligatorio').notEmpty(),
-        check('password', 'Password obligatoria').isLength({min: 6}) ],
+        check('password', 'Password obligatoria').isLength({min: 6}),
+        validarCampos 
+    ],
     crearUsuario
 );
 
