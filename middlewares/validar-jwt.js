@@ -10,8 +10,9 @@ const validarJWT = (req, res = response, next) => {
             msg: 'No autorizado'
         })
     }
-    //  VALIDACIONES
+    
     try {
+        //  VALIDACIONES
         const { uid, name } = jwt.verify(token, process.env.SECRET_JWT_SEED); //validar si fue firmado con dicha seed
         req.uid  = uid;
         req.name = name;
