@@ -7,6 +7,8 @@ const router = Router();
 const { crearUsuario, login, renovarToken } = require('../controllers/authController');
 //  MIDDLEWARES
 const { validarCampos } = require('../middlewares/validar-campos');
+const { validarJWT } = require('../middlewares/validar-jwt');
+
 
 //Login
 router.post('/',                                                //route
@@ -22,13 +24,16 @@ router.post('/new',
     [   check('name', 'Nombre obligatorio').notEmpty(),
         check('email', 'Email obligatorio').notEmpty(),
         check('password', 'Password obligatoria').isLength({min: 6}),
-        validarCampos 
+        validarCampos
     ],
     crearUsuario
 );
 
 //Renovar token
-router.get('/renew', 
+router.get('/renew',
+    [
+        validarJWT
+    ],
     renovarToken
 );
 
