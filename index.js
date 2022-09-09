@@ -23,7 +23,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 
 //  Manejador de rutas para servir el front
 app.get('*', (req, res)=>{
-    req.sendFile( path.resolve(__dirname, 'public/index.html') )
+    res.sendFile( path.resolve(__dirname, 'public/index.html') )
 });
 
 app.listen( process.env.PORT , () =>{
